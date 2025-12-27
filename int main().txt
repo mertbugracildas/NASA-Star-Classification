@@ -1,0 +1,100 @@
+int main()
+{
+
+int n = 5032189615332819537112976822349589378730798408513723516065074630081106503758415210427578051757871842379259866570098301946206888469902434898092142149331291;
+int e = 65537;
+int d = 0;
+string cipheredMessage = encrypt(n, e);
+cout << "Şifrelenmiş Mesaj: " << cipheredMessage << endl;
+string decryptedMessage = decrypt(cipheredMessage, n, d);
+cout << "Şifresi Çözülmüş Mesaj: " << decryptedMessage << endl;
+}
+
+
+string encrypt (int n, int e)
+{
+string m = "Last name is Smiley";
+for(int i = 0; i < m.length(); i ++ )
+{
+m[i] = toupper(m[i]);
+}
+string cipher = "";
+int i = 0;
+while (i < m.length())
+{
+string k,l;
+
+int c = m[i] - 64;
+int f = m[i+1] - 64;
+if(c < 0)
+c = 0;
+if(f < 0)
+f = 0;
+i += 2;
+if(c > 9)
+k = to_string(c);
+else
+k = "0" + to_string(c);
+if(f > 9)
+l = to_string(f);
+else
+l = "0" + to_string(f);
+string g = k + l;
+double m = stoi(g);
+double z = modularExponentiation(m, e, n);
+string t = to_string(z);
+char aa = t[0];
+char bb = t[1];
+char cc = t[2];
+char dd = t[3];
+string ee = "";
+ee += aa;
+ee += bb;
+string ff = "";
+ff += cc;
+ff += dd;
+char w = stoi(ee) + 64;
+char x = stoi(ff) + 64;
+cipher += w;
+cipher += x;
+}
+return cipher;
+}
+
+string decrypt(string cipher, int n, int d)
+{
+
+string decipher = "";
+int i = 0;
+cout << cipher << endl;
+while (i < cipher.length())
+{
+string k2,l2;
+
+int c2 = cipher[i] - 64; // 92 -64
+int f2 = cipher[i+1] - 64;
+// cout << c2 << " " << f2 << endl;
+if(c2 < 0)
+c2 = 0;
+if(f2 < 0)
+f2 = 0;
+i += 2;
+if(c2 > 9)
+k2 = to_string(c2);
+else
+k2 = "0" + to_string(c2);
+if(f2 > 9)
+l2 = to_string(f2);
+else
+l2 = "0" + to_string(f2);
+string g2 = k2 + l2;
+double m2 = stoi(g2);
+cout << m2 << " " << d << endl;
+long long int mm = pow(m2, d);
+cout << mm << endl;
+double z2 = modularExponentiation(m2 , d,n);
+cout << z2 << endl;
+}
+
+return decipher;
+}
